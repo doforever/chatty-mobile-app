@@ -37,6 +37,7 @@ export default function Navigation() {
         <Stack.Screen 
           name='Chat'
           component={Chat}
+          options={({ route }) => ({ title: route.params.title })}
         />
       </Stack.Navigator>
     </NavigationContainer>
