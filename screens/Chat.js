@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useMutation } from "@apollo/client";
 import { GiftedChat } from 'react-native-gifted-chat';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const ROOM = gql`
     query getRoom ($id: ID!)  {
@@ -20,15 +20,26 @@ const ROOM = gql`
     }
 `;
 
+const SEND_MESSAGE = gql`
+  mutation sendMessage($body: String!, $roomId: String!) {
+    sendMessage(body: $body, roomId: $roomId) {
+      insertedAt
+      body
+      user {
+        id
+        firstName
+      }
+    }
+  }
+`;
+
 export default function Chat({route: {params: {id, user: me}}}) {
   const [messages, setMessages] = useState([]);
   const { data, error } = useQuery(ROOM, { variables: {id}});
-
-  // if (data) console.log('Data ', data);
+  const [sendMessage, { }] = useMutation(SEND_MESSAGE, { variables: { roomId: id } });
 
   useEffect(() => {
     if (data) { 
-      console.log('Ready to set messages');
       setMessages(data.room.messages.map(({ id, body, insertedAt, user}) => ({
         _id: id,
         text: body,
@@ -43,14 +54,21 @@ export default function Chat({route: {params: {id, user: me}}}) {
     
   }, [data]);
 
-  useEffect(() => {
-    console.log('Messages ', messages);
-  }, [messages]);
+  const onSend = useCallback((messages = []) => {
+    setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
+    messages.forEach(({text}) => {
+      sendMessage({variables: {body: text}});
+    });
+  }, []);
+
+  // useEffect(() => {
+  //   console.log('Messages ', messages);
+  // }, [messages]);
 
   return (
     <GiftedChat
       messages={messages}
-      // onSend={messages => onSend(messages)}
+      onSend={messages => onSend(messages)}
       user={{
         _id: me.id,
       }}
