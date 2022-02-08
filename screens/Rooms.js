@@ -5,16 +5,23 @@ import RoomItem from '../components/RoomItem';
 const USER_ROOMS = gql`
 query getUserRooms {
     usersRooms {
-    rooms {
+      rooms {
         id
         name
       }
+    }
+    user {
+      id
+      firstName
+      lastName
     }
   }
 `;
 
 export default function Rooms({navigation}) {
   const { loading, error, data} = useQuery(USER_ROOMS);
+
+  if (data) console.log('Rooms ', data);
 
   if (loading) return <View><Text>Loading...</Text></View>;
   if (error) return <View><Text>Error :-(</Text></View>;
@@ -26,7 +33,13 @@ export default function Rooms({navigation}) {
         renderItem={({ item }) => (
           <RoomItem
             room={item}
-            onPress={() => navigation.navigate('Chat', { title: item.name })}
+            onPress={() => navigation.navigate('Chat', { 
+              user: {
+                id: data.user.id,
+                name: `${data.user.firstName} ${data.user.lastName}`,
+              }, 
+              id: item.id 
+            })}
           />
         )}
         keyExtractor={(item) => item.id.toString()}
