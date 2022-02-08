@@ -1,8 +1,6 @@
-import { StyleSheet, View, Button, Text, FlatList, Pressable } from 'react-native';
-import {
-  useQuery,
-  gql
-} from "@apollo/client";
+import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { useQuery, gql } from "@apollo/client";
+import RoomItem from '../components/RoomItem';
 
 const USER_ROOMS = gql`
 query getUserRooms {
@@ -14,16 +12,6 @@ query getUserRooms {
     }
   }
 `;
-
-const RoomItem = ({ room, onPress }) => {
-  const { name } = room;
-
-  return (
-    <Pressable style={styles.item} onPress={onPress}>
-      <Text>{name}</Text>
-    </Pressable>
-  )
-}
 
 export default function Rooms({navigation}) {
   const { loading, error, data} = useQuery(USER_ROOMS);
@@ -53,8 +41,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  item: {
-
   }
 });
