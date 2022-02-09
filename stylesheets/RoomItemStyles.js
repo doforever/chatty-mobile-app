@@ -2,8 +2,9 @@ import { StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 import Sizes from '../constants/Sizes';
 import Typography from '../constants/Typography';
+import Fonts from '../constants/Fonts';
 
-export default styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -40,5 +41,6 @@ export default styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 16,
     color: Colors.gray[500],
+    fontFamily: Fonts[400],
   }
 });

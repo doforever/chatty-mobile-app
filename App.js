@@ -7,6 +7,13 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
+import {
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold, 
+  useFonts
+} from '@expo-google-fonts/poppins';
 
 const TOKEN = process.env.TOKEN;
 
@@ -29,6 +36,13 @@ const client = new ApolloClient({
 });
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+
   return (
     <ApolloProvider client={client}>
       <Navigation />
