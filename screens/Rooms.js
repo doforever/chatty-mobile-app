@@ -8,8 +8,8 @@ export default function Rooms({navigation}) {
 
   // if (data) console.log('Rooms ', data);
 
-  if (loading) return <View><Text>Loading...</Text></View>;
-  if (error) return <View><Text>Error :-(</Text></View>;
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error :-(</Text>;
 
   return (
     <View style={styles.container}>
@@ -18,9 +18,7 @@ export default function Rooms({navigation}) {
         renderItem={({ item }) => (
           <RoomItem
             room={item}
-            onPress={() => navigation.navigate('Chat', { 
-              id: item.id 
-            })}
+            navigation={navigation}
           />
         )}
         keyExtractor={(item) => item.id.toString()}

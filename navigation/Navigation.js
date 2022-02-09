@@ -1,4 +1,4 @@
-import { Button } from 'react-native';
+import { Button, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Colors from '../constants/Colors';
@@ -27,17 +27,38 @@ export default function Navigation() {
           component={Rooms}
           options={{
             headerRight: () => (
-              <Button
-                onPress={() => console.log('button press')}
-                title="Search"
-              />
+              <View>
+                <Button
+                  onPress={() => console.log('button press')}
+                  title="Search"
+                />
+                <Button
+                  onPress={() => console.log('button press')}
+                  title="Contacts"
+                />
+              </View>
             ),
           }}
         />
         <Stack.Screen 
           name='Chat'
           component={Chat}
-          options={({ route }) => ({ title: route.params.title, name: route.params.title })}
+          options={({ route }) => ({ 
+            title: route.params.title, 
+            name: route.params.title,
+            headerRight: () => (
+              <View>
+                <Button
+                  onPress={() => console.log('button press')}
+                  title="Call"
+                />
+                <Button
+                  onPress={() => console.log('button press')}
+                  title="Video call"
+                />
+              </View>
+            ) 
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
