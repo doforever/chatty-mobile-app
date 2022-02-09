@@ -1,9 +1,10 @@
-import { StyleSheet, Text, Pressable, Image } from 'react-native';
+import { Text, Pressable, Image, View } from 'react-native';
 import { useQuery } from "@apollo/client";
 import { GET_MESSAGES } from '../gql/queries';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
+import styles from '../stylesheets/RoomItemStyles';
 
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
@@ -35,19 +36,16 @@ export default function RoomItem ({ room, navigation, me }) {
 
   return (
     <Pressable style={styles.container} onPress={onPress}>
-      <Image source={{ uri: 'https://placeimg.com/40/40/people' }} style={{ width: 40, height: 40 }}/>
-      {data?.room.messages.length >= 1 && <Text>{howLong(data?.room.messages[0].insertedAt)}</Text>}
-      <Text>{name}</Text>
-      {data?.room.messages.length >= 1 && <Text>{data?.room.messages[0].body}</Text>}
+      <Image 
+        source={{ uri: 'https://placeimg.com/40/40/people' }} 
+        style={{ width: 40, height: 40 }}
+        style={styles.avatar}
+      />
+      <View style={styles.textWrapper}>
+        {data?.room.messages.length >= 1 && <Text style={styles.time}>{howLong(data?.room.messages[0].insertedAt)}</Text>}
+        <Text style={styles.title}>{name}</Text>
+        {data?.room.messages.length >= 1 && <Text style={styles.text}>{data?.room.messages[0].body}</Text>}
+      </View>
     </Pressable>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});

@@ -1,7 +1,8 @@
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { useQuery } from "@apollo/client";
 import RoomItem from '../components/RoomItem';
 import { USER_ROOMS, MY_ID } from '../gql/queries';
+import styles from '../stylesheets/RoomsStyles';
 
 export default function Rooms({navigation}) {
   const { loading, error, data} = useQuery(USER_ROOMS);
@@ -28,12 +29,3 @@ export default function Rooms({navigation}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});

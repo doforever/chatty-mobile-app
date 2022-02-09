@@ -15,7 +15,7 @@ export default {
     '300': '#BFC1CC',
     '500': '#9FA2B2',
   },
-  white: '#9FA2B2',
+  white: '#FFFFFF',
   black: '#1A1A1A',
   active: '#A8FF76',
   error: '##FF445A',
