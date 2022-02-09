@@ -6,20 +6,29 @@ import dayjs from 'dayjs';
 var relativeTime = require('dayjs/plugin/relativeTime');
 dayjs.extend(relativeTime);
 
-export default function RoomItem ({ room, navigation }) {
+export default function RoomItem ({ room, navigation, me }) {
   const { name, id } = room;
   const { data } = useQuery(GET_MESSAGES, {
     variables: { id },
     pollInterval: 10000,
   });
 
-  const onPress = () => navigation.navigate('Chat', {
-    id,
-  });
-
   const howLong = (dateString) => {
     return dayjs(dateString, 'YYYY-MM-DD HH:mm:SS').fromNow();
   }; 
+
+  const createTitle = (messages) => {
+    if (!messages || !Array.isArray(messages)) return name;
+    else {
+      const interlocutor = messages.find(message => message.user.id !== me.id).user;
+      return interlocutor ? `${interlocutor.firstName} ${interlocutor.lastName}` : name;
+    }
+  };
+
+  const onPress = () => navigation.navigate('Chat', {
+    id,
+    title: createTitle(data.room.messages), 
+  });
 
   return (
     <Pressable style={styles.container} onPress={onPress}>

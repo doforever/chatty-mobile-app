@@ -1,10 +1,11 @@
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { useQuery } from "@apollo/client";
 import RoomItem from '../components/RoomItem';
-import { USER_ROOMS } from '../gql/queries';
+import { USER_ROOMS, MY_ID } from '../gql/queries';
 
 export default function Rooms({navigation}) {
   const { loading, error, data} = useQuery(USER_ROOMS);
+  const { data: myData } = useQuery(MY_ID);
 
   // if (data) console.log('Rooms ', data);
 
@@ -18,6 +19,7 @@ export default function Rooms({navigation}) {
         renderItem={({ item }) => (
           <RoomItem
             room={item}
+            me={myData?.user}
             navigation={navigation}
           />
         )}
