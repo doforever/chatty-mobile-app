@@ -1,42 +1,15 @@
-import { StyleSheet } from 'react-native';
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { StyleSheet, Text } from 'react-native';
+import { useQuery, useMutation } from "@apollo/client";
 import { GiftedChat } from 'react-native-gifted-chat';
 import { useState, useEffect, useCallback } from 'react';
+import { GET_MESSAGES, MY_ID } from '../gql/queries';
+import { SEND_MESSAGE } from '../gql/mutations';
 
-const ROOM = gql`
-    query getRoom ($id: ID!)  {
-      room (id: $id) {
-        messages {
-          insertedAt
-          body
-          id
-          user {
-            id
-            firstName
-            lastName
-          }
-        }
-      }
-    }
-`;
-
-const SEND_MESSAGE = gql`
-  mutation sendMessage($body: String!, $roomId: String!) {
-    sendMessage(body: $body, roomId: $roomId) {
-      insertedAt
-      body
-      user {
-        id
-        firstName
-      }
-    }
-  }
-`;
-
-export default function Chat({route: {params: {id, user: me}}}) {
+export default function Chat({route: {params: { id }}}) {
   const [messages, setMessages] = useState([]);
-  const { data, error } = useQuery(ROOM, { variables: {id}});
+  const { data, error } = useQuery(GET_MESSAGES, { variables: {id}});
   const [sendMessage, { }] = useMutation(SEND_MESSAGE, { variables: { roomId: id } });
+  const { data: myData } = useQuery(MY_ID);
 
   useEffect(() => {
     if (data) { 
@@ -65,12 +38,14 @@ export default function Chat({route: {params: {id, user: me}}}) {
   //   console.log('Messages ', messages);
   // }, [messages]);
 
+  if (!myData) return <Text>Loading user data...</Text>
+
   return (
     <GiftedChat
       messages={messages}
       onSend={messages => onSend(messages)}
       user={{
-        _id: me.id,
+        _id: myData.user.id,
       }}
     />
   )

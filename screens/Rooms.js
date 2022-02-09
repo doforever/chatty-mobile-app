@@ -1,22 +1,7 @@
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import RoomItem from '../components/RoomItem';
-
-const USER_ROOMS = gql`
-query getUserRooms {
-    usersRooms {
-      rooms {
-        id
-        name
-      }
-    }
-    user {
-      id
-      firstName
-      lastName
-    }
-  }
-`;
+import { USER_ROOMS } from '../gql/queries';
 
 export default function Rooms({navigation}) {
   const { loading, error, data} = useQuery(USER_ROOMS);
@@ -34,10 +19,6 @@ export default function Rooms({navigation}) {
           <RoomItem
             room={item}
             onPress={() => navigation.navigate('Chat', { 
-              user: {
-                id: data.user.id,
-                name: `${data.user.firstName} ${data.user.lastName}`,
-              }, 
               id: item.id 
             })}
           />
