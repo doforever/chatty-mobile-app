@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Pressable } from 'react-native';
+import { StyleSheet, Text, Pressable, Image } from 'react-native';
 import { useQuery } from "@apollo/client";
 import { GET_MESSAGES } from '../gql/queries';
 import dayjs from 'dayjs';
@@ -20,7 +20,7 @@ export default function RoomItem ({ room, navigation, me }) {
   const createTitle = (messages) => {
     if (!messages || !Array.isArray(messages)) return name;
     else {
-      const interlocutor = messages.find(message => message.user.id !== me.id).user;
+      const interlocutor = messages.find(message => message.user.id !== me.id)?.user;
       return interlocutor ? `${interlocutor.firstName} ${interlocutor.lastName}` : name;
     }
   };
@@ -32,6 +32,7 @@ export default function RoomItem ({ room, navigation, me }) {
 
   return (
     <Pressable style={styles.container} onPress={onPress}>
+      <Image source={{ uri: 'https://placeimg.com/40/40/people' }} style={{ width: 40, height: 40 }}/>
       {data?.room.messages.length >= 1 && <Text>{howLong(data?.room.messages[0].insertedAt)}</Text>}
       <Text>{name}</Text>
       {data?.room.messages.length >= 1 && <Text>{data?.room.messages[0].body}</Text>}

@@ -23,7 +23,7 @@ export default function Chat({route: {params: { id }}}) {
         user: {
           _id: user.id,
           name: `${user.firstName} ${user.lastName}`,
-          avatar: 'https://placeimg.com/140/140/any',
+          avatar: 'https://placeimg.com/140/140/people',
         }
       })));
     }
