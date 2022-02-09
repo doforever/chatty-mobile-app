@@ -7,14 +7,14 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
-import { TOKEN } from '@env';
+
+const TOKEN = process.env.TOKEN;
 
 const httpLink = createHttpLink({
   uri: 'https://chat.thewidlarzgroup.com/api/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
-  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
