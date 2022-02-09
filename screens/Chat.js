@@ -46,6 +46,7 @@ export default function Chat({route: {params: { id }}}) {
       user={{
         _id: myData.user.id,
       }}
+      scrollToBottom={true}
     />
   )
 };

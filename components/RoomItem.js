@@ -2,9 +2,12 @@ import { StyleSheet, Text, Pressable, Image } from 'react-native';
 import { useQuery } from "@apollo/client";
 import { GET_MESSAGES } from '../gql/queries';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import utc from 'dayjs/plugin/utc';
 
-var relativeTime = require('dayjs/plugin/relativeTime');
 dayjs.extend(relativeTime);
+dayjs.extend(utc);
+
 
 export default function RoomItem ({ room, navigation, me }) {
   const { name, id } = room;
@@ -14,7 +17,7 @@ export default function RoomItem ({ room, navigation, me }) {
   });
 
   const howLong = (dateString) => {
-    return dayjs(dateString, 'YYYY-MM-DD HH:mm:SS').fromNow();
+    return dayjs(dateString, 'YYYY-MM-DD HH:mm:SS').utc(true).fromNow();
   }; 
 
   const createTitle = (messages) => {
