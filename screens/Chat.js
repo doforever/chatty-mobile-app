@@ -1,9 +1,10 @@
-import { StyleSheet, Text } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { useQuery, useMutation } from "@apollo/client";
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, Send, InputToolbar } from 'react-native-gifted-chat';
 import { useState, useEffect, useCallback } from 'react';
 import { GET_MESSAGES, MY_ID } from '../gql/queries';
 import { SEND_MESSAGE } from '../gql/mutations';
+import styles from '../stylesheets/ChatStyles';
 
 export default function Chat({route: {params: { id }}}) {
   const [messages, setMessages] = useState([]);
@@ -37,6 +38,24 @@ export default function Chat({route: {params: { id }}}) {
     });
   }, []);
 
+  const renderSend = (props) => (
+      <Send
+        {...props}
+        style={{flexDirection: 'row'}}
+      >
+      <View style={{ flexDirection: 'row' }}>
+          <Image 
+            source={require('../assets/send.png')} 
+            style={styles.send}
+          />
+        </View>
+      </Send>
+  );
+
+  const renderInputToolbar = (props) => (
+    <InputToolbar {...props} containerStyle={styles.inputToolbar}></InputToolbar>
+  );
+
   if (!myData) return <Text>Loading user data...</Text>
 
   return (
@@ -47,11 +66,14 @@ export default function Chat({route: {params: { id }}}) {
         _id: myData.user.id,
       }}
       scrollToBottom={true}
+      listViewProps={{ style: styles.listView }}
+      renderDay={() => {}}
+      renderTime={() => { }}
+      renderSend={renderSend}
+      renderInputToolbar={renderInputToolbar}
+      minInputToolbarHeight={60}
+      textInputStyle={styles.input}
+      alwaysShowSend={true}
     />
   )
 };
-
-const styles = StyleSheet.create({
-  container: {
-  },
-});

@@ -58,7 +58,6 @@ export default function RoomItem ({ room, navigation, me }) {
     <Pressable style={styles.container} onPress={onPress}>
       <Image 
         source={{ uri: 'https://placeimg.com/40/40/people' }} 
-        style={{ width: 40, height: 40 }}
         style={styles.avatar}
       />
       <View style={styles.textWrapper}>
