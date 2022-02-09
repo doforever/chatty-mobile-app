@@ -7,7 +7,10 @@ import { SEND_MESSAGE } from '../gql/mutations';
 
 export default function Chat({route: {params: { id }}}) {
   const [messages, setMessages] = useState([]);
-  const { data, error } = useQuery(GET_MESSAGES, { variables: {id}});
+  const { data, error } = useQuery(GET_MESSAGES, { 
+    variables: {id},
+    pollInterval: 1000,
+  });
   const [sendMessage, { }] = useMutation(SEND_MESSAGE, { variables: { roomId: id } });
   const { data: myData } = useQuery(MY_ID);
 
@@ -33,10 +36,6 @@ export default function Chat({route: {params: { id }}}) {
       sendMessage({variables: {body: text}});
     });
   }, []);
-
-  // useEffect(() => {
-  //   console.log('Messages ', messages);
-  // }, [messages]);
 
   if (!myData) return <Text>Loading user data...</Text>
 

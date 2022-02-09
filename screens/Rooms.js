@@ -6,7 +6,7 @@ import { USER_ROOMS } from '../gql/queries';
 export default function Rooms({navigation}) {
   const { loading, error, data} = useQuery(USER_ROOMS);
 
-  if (data) console.log('Rooms ', data);
+  // if (data) console.log('Rooms ', data);
 
   if (loading) return <View><Text>Loading...</Text></View>;
   if (error) return <View><Text>Error :-(</Text></View>;
