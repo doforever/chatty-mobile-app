@@ -5,9 +5,29 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
 import styles from '../stylesheets/RoomItemStyles';
+import updateLocale from 'dayjs/plugin/updateLocale';
 
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
+dayjs.extend(updateLocale);
+
+dayjs.updateLocale('en', {
+  relativeTime: {
+    future: "in %s",
+    past: "%s ago",
+    s: 'a few seconds',
+    m: "1 m",
+    mm: "%d m",
+    h: "1 h",
+    hh: "%d h",
+    d: "1 d",
+    dd: "%d d",
+    M: "1 m",
+    MM: "%d m",
+    y: "1 y",
+    yy: "%d y"
+  }
+})
 
 
 export default function RoomItem ({ room, navigation, me }) {
@@ -42,10 +62,20 @@ export default function RoomItem ({ room, navigation, me }) {
         style={styles.avatar}
       />
       <View style={styles.textWrapper}>
-        {data?.room.messages.length >= 1 && <Text style={styles.time}>{howLong(data?.room.messages[0].insertedAt)}</Text>}
-        <Text style={styles.title}>{name}</Text>
-        {data?.room.messages.length >= 1 && <Text style={styles.text}>{data?.room.messages[0].body}</Text>}
+        <Text 
+          style={styles.title}
+          numberOfLines={1}
+          ellipsizeMode='tail'
+        >{name}</Text>
+        {data?.room.messages.length >= 1 
+        && <Text 
+          style={styles.text}
+          numberOfLines={1}
+          ellipsizeMode='tail'
+        >{data?.room.messages[0].body}</Text>}
       </View>
+      {data?.room.messages.length >= 1
+        && <Text style={styles.time}>{howLong(data?.room.messages[0].insertedAt)}</Text>}
     </Pressable>
   )
 }

@@ -18,6 +18,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     borderRadius: Sizes.radiusSmall,
     marginBottom: Sizes.paddingSmall,
+    position: 'relative',
   },
   avatar: {
     width: 64,
@@ -30,12 +31,16 @@ export default StyleSheet.create({
   },
   title: {
     ...Typography.title,
+    paddingRight: 21,
   },
   text: {
     ...Typography.body,
+    paddingRight: 21,
   },
   time: {
-    alignSelf: 'flex-end',
+    position: 'absolute',
+    top: 8,
+    right: 16,
     textAlign: 'right',
     fontSize: 13,
     fontWeight: '400',
