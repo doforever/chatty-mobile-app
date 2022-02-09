@@ -1,6 +1,6 @@
 import { Text, View, Image } from 'react-native';
 import { useQuery, useMutation } from "@apollo/client";
-import { GiftedChat, Send, InputToolbar } from 'react-native-gifted-chat';
+import { GiftedChat, Send, InputToolbar, Message, Bubble } from 'react-native-gifted-chat';
 import { useState, useEffect, useCallback } from 'react';
 import { GET_MESSAGES, MY_ID } from '../gql/queries';
 import { SEND_MESSAGE } from '../gql/mutations';
@@ -56,6 +56,20 @@ export default function Chat({route: {params: { id }}}) {
     <InputToolbar {...props} containerStyle={styles.inputToolbar}></InputToolbar>
   );
 
+  const renderBubble = (props) => (
+    <Bubble
+      {...props}
+      textStyle={{
+        right: styles.textRight,
+        left: styles.textLeft,
+      }}
+      wrapperStyle={{
+        left: styles.bubbleLeft,
+        right: styles.bubbleRight,
+      }}
+    />
+  );
+
   if (!myData) return <Text>Loading user data...</Text>
 
   return (
@@ -71,9 +85,10 @@ export default function Chat({route: {params: { id }}}) {
       renderTime={() => { }}
       renderSend={renderSend}
       renderInputToolbar={renderInputToolbar}
-      minInputToolbarHeight={60}
+      minInputToolbarHeight={50}
       textInputStyle={styles.input}
       alwaysShowSend={true}
+      renderBubble={renderBubble}
     />
   )
 };
