@@ -1,6 +1,6 @@
 import { Text, View, Image } from 'react-native';
 import { useQuery, useMutation } from "@apollo/client";
-import { GiftedChat, Send, InputToolbar, Message, Bubble } from 'react-native-gifted-chat';
+import { GiftedChat, Send, InputToolbar, Bubble } from 'react-native-gifted-chat';
 import { useState, useEffect, useCallback } from 'react';
 import { GET_MESSAGES, MY_ID } from '../gql/queries';
 import { SEND_MESSAGE } from '../gql/mutations';
@@ -8,7 +8,7 @@ import styles from '../stylesheets/ChatStyles';
 
 export default function Chat({route: {params: { id }}}) {
   const [messages, setMessages] = useState([]);
-  const { data, error } = useQuery(GET_MESSAGES, { 
+  const { data } = useQuery(GET_MESSAGES, { 
     variables: {id},
     pollInterval: 1000,
   });
