@@ -7,10 +7,7 @@ export default StyleSheet.create({
   headerHightContainer: { 
     flexDirection: 'row', 
     width: Sizes.iconButton * 2 + 8, 
-    justifyContent: 'space-between' 
-  },
-  headerRooms: { 
-    ...Typography.h2, 
-    color: Colors.plum[500],
+    justifyContent: 'space-between',
+    marginRight: 6,
   },
 });

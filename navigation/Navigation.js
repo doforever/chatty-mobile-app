@@ -9,7 +9,10 @@ import searchIcon from '../assets/search.png';
 import usersIcon from '../assets/users.png';
 import callIcon from '../assets/call.png';
 import videoCallIcon from '../assets/videocall.png';
+import caretIcon from '../assets/caret.png';
 import styles from '../stylesheets/NavigationStyles';
+import Typography from '../constants/Typography';
+import Sizes from '../constants/Sizes';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,18 +24,23 @@ export default function Navigation() {
         screenOptions={{
           headerStyle: {
             backgroundColor: Colors.blue[300],
+            height: 76,
+            borderBottomRightRadius: Sizes.radiusBig,
+            borderBottomLeftRadius: Sizes.radiusBig,
           },
+          contentStyle: { backgroundColor: Colors.blue[100] },
           headerTintColor: Colors.plum[500],
           headerTitleStyle: {
-            fontWeight: '700',
+            ...Typography.h2,
+            color: Colors.plum[500],
           },
+          headerBackImageSource: caretIcon,
         }}
       >
         <Stack.Screen
           name='Rooms'
           component={Rooms}
           options={{
-            headerTitle: (props) => (<Text {...props} style={styles.headerRooms}></Text>),
             headerRight: () => (
               <View style={styles.headerHightContainer}>
                 <IconButton
