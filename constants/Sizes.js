@@ -3,4 +3,5 @@ export default {
   radiusBig: 24, 
   paddingSmall: 12,
   paddingBig: 16,
+  iconButton: 44, 
 };

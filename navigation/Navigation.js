@@ -1,9 +1,14 @@
-import { Button, View } from 'react-native';
+import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Colors from '../constants/Colors';
 import Rooms from '../screens/Rooms';
 import Chat from '../screens/Chat';
+import IconButton from '../components/IconButton';
+import searchIcon from '../assets/search.png';
+import usersIcon from '../assets/users.png';
+import callIcon from '../assets/call.png';
+import videoCallIcon from '../assets/videocall.png';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,14 +32,14 @@ export default function Navigation() {
           component={Rooms}
           options={{
             headerRight: () => (
-              <View>
-                <Button
+              <View style={{ flexDirection: 'row', width: 96, justifyContent: 'space-between'}}>
+                <IconButton
                   onPress={() => console.log('button press')}
-                  title="Search"
+                  icon={searchIcon}
                 />
-                <Button
+                <IconButton
                   onPress={() => console.log('button press')}
-                  title="Contacts"
+                  icon={usersIcon}
                 />
               </View>
             ),
@@ -47,14 +52,14 @@ export default function Navigation() {
             title: route.params.title, 
             name: route.params.title,
             headerRight: () => (
-              <View>
-                <Button
+              <View style={{ flexDirection: 'row', width: 96, justifyContent: 'space-between'}}>
+                <IconButton
                   onPress={() => console.log('button press')}
-                  title="Call"
+                  icon={callIcon}
                 />
-                <Button
+                <IconButton
                   onPress={() => console.log('button press')}
-                  title="Video call"
+                  icon={videoCallIcon}
                 />
               </View>
             ) 
