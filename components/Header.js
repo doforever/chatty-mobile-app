@@ -1,16 +1,13 @@
-import { Header as RNNHeader, getHeaderTitle, HeaderBackButton } from '@react-navigation/elements';
-import { View, StyleSheet, Text, Image } from 'react-native';
-import Colors from '../constants/Colors';
-import Sizes from '../constants/Sizes';
-import Typography from '../constants/Typography';
+import { HeaderBackButton } from '@react-navigation/elements';
+import { View, Text, Image } from 'react-native';
 import caretIcon from '../assets/caret.png';
+import styles from '../stylesheets/HeaderStyles';
 
-export default function Header(props) {
-  // console.log(props);
-  const canGoBack = props.navigation.canGoBack();
-  const ActionButtons = props.options.headerRight;
-  const HeaderTitle = props.options.headerTitle 
-    || (() => <Text style={styles.title}>{props.options.title || props.route.name}</Text>);
+export default function Header({navigation, options, route}) {
+  const canGoBack = navigation.canGoBack();
+  const ActionButtons = options.headerRight;
+  const HeaderTitle = options.headerTitle 
+    || (() => <Text style={styles.title}>{options.title || route.name}</Text>);
 
   return (
     <View style={styles.container}>
@@ -18,7 +15,7 @@ export default function Header(props) {
         <View style={styles.leftSide}>
           {canGoBack
             && <HeaderBackButton
-              onPress={props.navigation.goBack}
+              onPress={navigation.goBack}
               style={styles.goBackButton}
               backImage={() =>
                 <Image
@@ -30,44 +27,8 @@ export default function Header(props) {
             />}
           <HeaderTitle/>
         </View>
-        <ActionButtons style={styles.actionButtons}/>
+        <ActionButtons/>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    height: 120,
-    width: '100%',
-    backgroundColor: Colors.blue[100],
-  },
-  innerContainer: {
-    flexDirection: 'row',
-    padding: Sizes.paddingBig,
-    borderBottomRightRadius: Sizes.radiusBig,
-    borderBottomLeftRadius: Sizes.radiusBig,
-    height: '100%',
-    backgroundColor: Colors.blue[300],
-    alignItems: 'center',
-    alignContent: 'center',
-    paddingTop: 50,
-    justifyContent: 'space-between',
-  },
-  leftSide: {
-    flexDirection: 'row',
-    flexShrink: 1,
-  },
-  title: {
-    ...Typography.h2,
-    color: Colors.plum[500],
-  },
-  goBackButton: {
-    justifyContent: 'flex-start',
-    marginLeft: 0,
-  },
-  backIcon: {
-    width: 16,
-    height: 16,
-  }
-});

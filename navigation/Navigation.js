@@ -12,6 +12,7 @@ import caretIcon from '../assets/caret.png';
 import styles from '../stylesheets/NavigationStyles';
 import Header from '../components/Header';
 import ChatTitle from '../components/ChatTitle';
+import Colors from '../constants/Colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ export default function Navigation() {
         screenOptions={{
           headerBackImageSource: caretIcon,
           header: (props) => <Header {...props} />,
+          contentStyle: {backgroundColor: Colors.blue[100]},
         }}
       >
         <Stack.Screen
