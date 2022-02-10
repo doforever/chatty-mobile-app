@@ -12,6 +12,7 @@ export default StyleSheet.create({
     borderRadius: Sizes.iconButton / 2,
   },
   icon: {
-    width: 24
+    width: 24,
+    height: 24,
   }
 });

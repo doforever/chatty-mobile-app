@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import Navigation from './navigation/Navigation';
+import AppLoading from 'expo-app-loading';
 import {
   ApolloClient,
   InMemoryCache,
@@ -42,6 +43,8 @@ export default function App() {
     Poppins_600SemiBold,
     Poppins_700Bold,
   });
+
+  if (!fontsLoaded) return <AppLoading />;
 
   return (
     <ApolloProvider client={client}>

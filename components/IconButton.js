@@ -8,6 +8,7 @@ export default function IconButton({icon, onPress}) {
         <Image
           source={icon}
           style={styles.icon}
+          resizeMode='contain'
         />
       </View>
     </Pressable>

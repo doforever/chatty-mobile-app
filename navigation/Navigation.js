@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Colors from '../constants/Colors';
@@ -9,6 +9,7 @@ import searchIcon from '../assets/search.png';
 import usersIcon from '../assets/users.png';
 import callIcon from '../assets/call.png';
 import videoCallIcon from '../assets/videocall.png';
+import styles from '../stylesheets/NavigationStyles';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,8 +32,9 @@ export default function Navigation() {
           name='Rooms'
           component={Rooms}
           options={{
+            headerTitle: (props) => (<Text {...props} style={styles.headerRooms}></Text>),
             headerRight: () => (
-              <View style={{ flexDirection: 'row', width: 96, justifyContent: 'space-between'}}>
+              <View style={styles.headerHightContainer}>
                 <IconButton
                   onPress={() => console.log('button press')}
                   icon={searchIcon}
@@ -52,7 +54,7 @@ export default function Navigation() {
             title: route.params.title, 
             name: route.params.title,
             headerRight: () => (
-              <View style={{ flexDirection: 'row', width: 96, justifyContent: 'space-between'}}>
+              <View style={styles.headerHightContainer}>
                 <IconButton
                   onPress={() => console.log('button press')}
                   icon={callIcon}

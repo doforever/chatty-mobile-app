@@ -16,4 +16,11 @@ export default {
     color: Colors.black,
     fontFamily: Fonts[400],
   },
+  h2: {
+    fontSize: 28,
+    lineHeight: 42,
+    fontWeight: '700',
+    color: Colors.black,
+    fontFamily: Fonts[700],
+  }
 };
