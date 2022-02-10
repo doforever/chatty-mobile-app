@@ -6,9 +6,11 @@ import Typography from '../constants/Typography';
 import caretIcon from '../assets/caret.png';
 
 export default function Header(props) {
-  console.log(props);
+  // console.log(props);
   const canGoBack = props.navigation.canGoBack();
   const ActionButtons = props.options.headerRight;
+  const HeaderTitle = props.options.headerTitle 
+    || (() => <Text style={styles.title}>{props.options.title || props.route.name}</Text>);
 
   return (
     <View style={styles.container}>
@@ -26,7 +28,7 @@ export default function Header(props) {
                 />
               }
             />}
-          <Text style={styles.title}>{props.options.title || props.route.name}</Text>
+          <HeaderTitle/>
         </View>
         <ActionButtons style={styles.actionButtons}/>
       </View>
@@ -54,6 +56,7 @@ const styles = StyleSheet.create({
   },
   leftSide: {
     flexDirection: 'row',
+    flexShrink: 1,
   },
   title: {
     ...Typography.h2,

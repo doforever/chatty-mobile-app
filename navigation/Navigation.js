@@ -11,6 +11,7 @@ import videoCallIcon from '../assets/videocall.png';
 import caretIcon from '../assets/caret.png';
 import styles from '../stylesheets/NavigationStyles';
 import Header from '../components/Header';
+import ChatTitle from '../components/ChatTitle';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +49,7 @@ export default function Navigation() {
           options={({ route }) => ({ 
             title: route.params.title, 
             name: route.params.title,
+            headerTitle: () => <ChatTitle title={route.params.title} />,
             headerRight: () => (
               <View style={styles.headerHightContainer}>
                 <IconButton
