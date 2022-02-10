@@ -8,3 +8,4 @@ Requests are authorized with user token set as an environmental variable.
 2. Install expo-cli if needed `npm install -g expo-cli`
 3. Install dependencies with `expo install` 
 4. Run project `expo start`
+5. To communicate with the API create `.env` file in project directory and add TOKEN variable. 
