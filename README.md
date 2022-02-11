@@ -9,3 +9,6 @@ Requests are authorized with user token set as an environmental variable.
 3. Install dependencies with `expo install` 
 4. Run project `expo start`
 5. To communicate with the API create `.env` file in project directory and add TOKEN variable. 
+
+## Mobile preview
+Mobile preview is available with Expo Go app after scanning QR code from this [link](https://expo.dev/@doforever/chatty-mobile-app?serviceType=classic&distribution=expo-go).
